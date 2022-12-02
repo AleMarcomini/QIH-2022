@@ -1,0 +1,22 @@
+- app_alice:
+    secret_key: '11001001001000001100011'
+  app_bob:
+    CHSH: -0.8937728937728939
+    CHSH_err: !!python/object/apply:numpy.core.multiarray.scalar
+    - !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      EZOHz32V4z8=
+    secret_key: '10110100100111000100011'

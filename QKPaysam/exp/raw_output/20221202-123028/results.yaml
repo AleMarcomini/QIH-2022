@@ -1,0 +1,6 @@
+- app_alice:
+    secret_key: '10000000110111111110'
+  app_bob:
+    CHSH: '3.1515151515151514'
+    CHSH_err: nan
+    secret_key: '10000000110111111110'

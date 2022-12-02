@@ -7,7 +7,7 @@ from eve import Eve
 import pickle
 from tqdm import tqdm
 
-N = 10000
+N = 200
 Eve_is_eavesdropping = False
 
 def main(app_config=None, x=0, y=0):
@@ -30,11 +30,8 @@ def main(app_config=None, x=0, y=0):
             sigma_n = np.sqrt(len(df_aux[df_aux.Parity < 0]))
 
             sigma_t = 0
-            print(sigma_t)
             sigma_p_p = p_p * np.sqrt( (sigma_p / (p_p * max(1, total)) )**2 + (sigma_t / max(1, total))**2 )
-            print(sigma_p_p)
             sigma_p_n = p_n * np.sqrt( (sigma_n / (p_n * max(1, total)) )**2 + (sigma_t / max(1, total))**2 )
-            print(sigma_p_n)
 
             #total = sum( (diffBases[:, 0] == a) & (diffBases[:, 1] == b) )
             # p_p = ( sum( (diffBases[:, 0] == a) & (diffBases[:, 1] == b) & (diffBases[:, 2] == 1) &
@@ -53,8 +50,9 @@ def main(app_config=None, x=0, y=0):
         exp_a3b1, t_3, sigma_e3, sigma_t3 = finder_p(3, 1)
         exp_a3b3, t_4, sigma_e4, sigma_t4 = finder_p(3, 3)
 
-        print(len(diffBases),t_1+t_2+t_3+t_4 )
+        print(len(diffBases), t_1+t_2+t_3+t_4)
         print(exp_a1b1, exp_a1b3, exp_a3b1, exp_a3b3)
+        print(exp_a1b1 - exp_a1b3 + exp_a3b1 + exp_a3b3)
         return exp_a1b1 - exp_a1b3 + exp_a3b1 + exp_a3b3, np.sqrt( sigma_e1**2 + sigma_e2**2 + sigma_e3**2 + sigma_e4**2)
 
     # def S(diffBases):
@@ -153,8 +151,8 @@ def main(app_config=None, x=0, y=0):
             m = q_ent.measure()
             bob.flush()
             bob_outputs.append(str(m))
-            if Eve_is_eavesdropping:
-                print('Eve measure:', m_eve, 'Bob measure:', m)
+            #if Eve_is_eavesdropping:
+                #print('Eve measure:', m_eve, 'Bob measure:', m)
     #Bob is sending to Alice his basis
     socket.send("".join(bob_basis))
     #Bob receives the basis from Alice
@@ -165,7 +163,7 @@ def main(app_config=None, x=0, y=0):
     bob_basis = np.array(bob_basis).astype(int)
     alice_basis = np.array(alice_basis_received).astype(int)
 
-    mask_sift = np.equal(alice_basis, bob_basis - np.ones(len(bob_basis)))
+    mask_sift = np.equal(alice_basis, bob_basis + np.ones(len(bob_basis), dtype=int))
 
     bob_outputs_chsh = np.array([bob_outputs[ii] for ii in range(len(bob_outputs))])[np.invert(mask_sift)]
     socket.send("".join(bob_outputs_chsh))
@@ -189,7 +187,7 @@ def main(app_config=None, x=0, y=0):
     #     if alice_basis_chsh[ii] == 0:
     #         alice_basis_chsh[ii] = 3
 
-    alice_basis_chsh = alice_basis_chsh+np.ones(len(alice_basis_chsh))
+    alice_basis_chsh = alice_basis_chsh + np.ones(len(alice_basis_chsh))
     bob_basis_chsh = bob_basis_chsh + np.ones(len(bob_basis_chsh))
 
     total_data_chsh = np.transpose(np.vstack((
@@ -204,4 +202,18 @@ def main(app_config=None, x=0, y=0):
 
     total_data_chsh = total_data_chsh.astype(int)
 
-    print(S(total_data_chsh))
+    CHSH = S(total_data_chsh)
+    #print(S(total_data_chsh))
+
+    Bob_key = np.array(bob_outputs)[mask_sift]
+    Bob_key = "".join(Bob_key)
+    results_path = '/Users/ale/PycharmProjects/QIH2k22/QIH22-QKD/exp/results/CHSH.txt'
+
+    with open(results_path, 'a') as result_list:
+        result_list.write(str(CHSH[0]) + "\t" + str(CHSH[1]) + '\n')
+
+    return {
+        "secret_key": Bob_key,
+        "CHSH": str(CHSH[0]),
+        "CHSH_err": str(CHSH[1]),
+    }

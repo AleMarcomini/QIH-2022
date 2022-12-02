@@ -1,0 +1,54 @@
+- HFL: /Users/ale/PycharmProjects/QIH2k22/QIH22-QKD/exp/input/app_bob.py
+  HLN: 159
+  INS: SEND
+  LOG: 'Send classical message to alice: 1011110022102021000220222112220211211012'
+  MSG: '1011110022102021000220222112220211211012'
+  REC: alice
+  SEN: bob
+  SOD: 0
+  WCT: '2022-12-02 12:18:12.199921'
+- HFL: /Users/ale/PycharmProjects/QIH2k22/QIH22-QKD/exp/input/app_bob.py
+  HLN: 161
+  INS: WAIT_RECV
+  LOG: Waiting for a classical message from alice...
+  MSG: null
+  REC: bob
+  SEN: alice
+  SOD: 0
+  WCT: '2022-12-02 12:18:12.200012'
+- HFL: /Users/ale/PycharmProjects/QIH2k22/QIH22-QKD/exp/input/app_bob.py
+  HLN: 161
+  INS: RECV
+  LOG: 'Message received from alice: 1111022122021121002012000001202120022002'
+  MSG: '1111022122021121002012000001202120022002'
+  REC: bob
+  SEN: alice
+  SOD: 0
+  WCT: '2022-12-02 12:18:12.200057'
+- HFL: /Users/ale/PycharmProjects/QIH2k22/QIH22-QKD/exp/input/app_bob.py
+  HLN: 171
+  INS: SEND
+  LOG: 'Send classical message to alice: 101101001111001101101100110100000'
+  MSG: '101101001111001101101100110100000'
+  REC: alice
+  SEN: bob
+  SOD: 0
+  WCT: '2022-12-02 12:18:12.200317'
+- HFL: /Users/ale/PycharmProjects/QIH2k22/QIH22-QKD/exp/input/app_bob.py
+  HLN: 172
+  INS: WAIT_RECV
+  LOG: Waiting for a classical message from alice...
+  MSG: null
+  REC: bob
+  SEN: alice
+  SOD: 0
+  WCT: '2022-12-02 12:18:12.200384'
+- HFL: /Users/ale/PycharmProjects/QIH2k22/QIH22-QKD/exp/input/app_bob.py
+  HLN: 172
+  INS: RECV
+  LOG: 'Message received from alice: 001001011001101011010000100001000'
+  MSG: '001001011001101011010000100001000'
+  REC: bob
+  SEN: alice
+  SOD: 0
+  WCT: '2022-12-02 12:18:12.307284'

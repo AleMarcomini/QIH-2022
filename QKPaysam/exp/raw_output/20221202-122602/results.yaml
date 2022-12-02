@@ -1,0 +1,4 @@
+- app_alice:
+    secret_key: '1000010011110'
+  app_bob:
+    secret_key: 0100011000011_-0.3_0.62

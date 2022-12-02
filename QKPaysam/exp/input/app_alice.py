@@ -3,7 +3,7 @@ from netqasm.sdk import EPRSocket
 import numpy as np
 import random
 
-N = 10000
+N = 200
 
 def main(app_config=None, x=0, y=0):
 
@@ -65,7 +65,7 @@ def main(app_config=None, x=0, y=0):
     alice_basis = np.array(alice_basis).astype(int)
     bob_basis = np.array(bob_basis_received).astype(int)
 
-    mask_sift = np.equal(alice_basis, bob_basis - np.ones(len(bob_basis)))
+    mask_sift = np.equal(alice_basis, bob_basis + np.ones(len(bob_basis), dtype=int))
 
     alice_outputs_chsh = np.array([alice_outputs[ii] for ii in range(len(alice_outputs))])[np.invert(mask_sift)]
     socket.send("".join(alice_outputs_chsh))
@@ -91,6 +91,14 @@ def main(app_config=None, x=0, y=0):
         alice_outputs_chsh,
         bob_outputs_chsh
     )))
+
+    Alice_key = np.array(alice_outputs)[mask_sift]
+    Alice_key = "".join(Alice_key)
+    print(Alice_key)
+
+    return {
+        "secret_key": Alice_key,
+    }
 
     # print(S(total_data_chsh))
 

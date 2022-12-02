@@ -1,0 +1,5 @@
+- app_alice:
+    ciao: ciao
+    secret_key: '010011010001011011010'
+  app_bob:
+    secret_key: 010011010001011011010_2.6461_nan
